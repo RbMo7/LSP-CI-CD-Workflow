@@ -1,6 +1,9 @@
 # Hello World React App - DevOps CI/CD Demo 🚀
 
-This is a simple React application created for **LSPP 2025 Assignment 1: The Build Verifier**. This project demonstrates the fundamentals of CI/CD with Docker containerization and GitHub Actions automation.
+[![Build & Test](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/build.yml/badge.svg)](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/build.yml)
+[![Release](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/release.yml/badge.svg)](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/release.yml)
+
+This is a simple React application created for **LSPP 2025 Assignment 3: The Release Architect**. This project demonstrates professional-grade CI/CD with Docker multi-stage builds, security scanning, automated releases, and container registry integration.
 
 ## 🎯 Project Overview
 
@@ -23,6 +26,34 @@ The `Dockerfile` uses Node.js Alpine for a lightweight, production-ready contain
 - Installs dependencies efficiently with `npm ci`
 - Builds the React app for production
 - Serves the static files using the `serve` package
+
+## 🚀 Release Strategy & Versioning
+
+### Semantic Versioning
+This project follows [Semantic Versioning](https://semver.org/) (SemVer):
+- **MAJOR.MINOR.PATCH** (e.g., v1.2.3)
+- **MAJOR**: Breaking changes that require user action
+- **MINOR**: New features that are backward compatible  
+- **PATCH**: Bug fixes and small improvements
+- **Pre-release**: Beta versions (e.g., v1.1.0-beta, v2.0.0-rc1)
+
+### Automated Release Process
+Our release pipeline triggers on Git tags starting with `v`:
+1. **Multi-Stage Docker Build**: Creates optimized, secure production images
+2. **Security Scanning**: Scans images for vulnerabilities using Trivy
+3. **Container Registry**: Pushes validated images to GitHub Container Registry (ghcr.io)
+4. **GitHub Releases**: Automatically creates releases with generated changelogs
+
+### How to Create a Release
+```bash
+# Create and push a new version tag
+git tag v1.0.0
+git push origin v1.0.0
+
+# For pre-release versions
+git tag v1.1.0-beta
+git push origin v1.1.0-beta
+```
 
 ## 🚀 Quick Start
 
