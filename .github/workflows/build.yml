@@ -1,0 +1,58 @@
+name: Build & Test
+
+# Trigger the workflow on every push to the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Test job - must run first and pass for build job to run
+  test-job:
+    runs-on: ubuntu-latest
+    name: Run Tests
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run tests
+      run: npm test -- --coverage --watchAll=false
+      
+    - name: Test application startup
+      run: |
+        npm run build
+        echo "Build completed successfully - application can be packaged"
+
+  # Build job - depends on test-job and will only run if tests pass
+  build-job:
+    runs-on: ubuntu-latest
+    name: Build Docker Image
+    needs: test-job  # This job depends on test-job completing successfully
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Build Docker image
+      run: |
+        docker build -t hello-world-app:latest .
+        echo "Docker image built successfully!"
+        
+    - name: Verify Docker image
+      run: |
+        docker images hello-world-app:latest
+        echo "Docker image verification completed!"

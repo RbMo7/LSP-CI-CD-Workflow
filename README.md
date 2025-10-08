@@ -1,4 +1,30 @@
-# Getting Started with Create React App
+# Hello World React App - DevOps CI/CD Demo 🚀
+
+This is a simple React application created for **LSPP 2025 Assignment 1: The Build Verifier**. This project demonstrates the fundamentals of CI/CD with Docker containerization and GitHub Actions automation.
+
+## 🎯 Project Overview
+
+This application showcases:
+- ✅ **Docker containerization** with multi-stage builds
+- ✅ **GitHub Actions CI/CD** with automated testing and building  
+- ✅ **Automated testing** with comprehensive test coverage
+- ✅ **Build verification** ensuring reliable deployments
+
+## 🏗️ Architecture
+
+### CI/CD Pipeline
+Our GitHub Actions workflow (`build.yml`) implements a two-job pipeline:
+
+1. **test-job**: Runs all tests and verifies the application builds successfully
+2. **build-job**: Creates a Docker image (only runs if tests pass, using `needs: test-job`)
+
+### Docker Strategy
+The `Dockerfile` uses Node.js Alpine for a lightweight, production-ready container that:
+- Installs dependencies efficiently with `npm ci`
+- Builds the React app for production
+- Serves the static files using the `serve` package
+
+## 🚀 Quick Start
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
