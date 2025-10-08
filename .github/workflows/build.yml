@@ -1,6 +1,6 @@
 name: Build & Test
 
-# Trigger the workflow on every push to the main branch
+# Run this on every push to main and on PRs
 on:
   push:
     branches: [ main ]
@@ -32,7 +32,7 @@ jobs:
     - name: Test application startup
       run: |
         npm run build
-        echo "Build completed successfully - application can be packaged"
+        echo "Build works - ready for Docker!"
 
   # Build job - depends on test-job and will only run if tests pass
   build-job:

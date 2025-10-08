@@ -9,18 +9,18 @@ test('renders hello world heading', () => {
 
 test('renders welcome message', () => {
   render(<App />);
-  const welcomeElement = screen.getByText(/welcome to our devops ci\/cd pipeline demo/i);
+  const welcomeElement = screen.getByText(/welcome to my devops learning journey/i);
   expect(welcomeElement).toBeInTheDocument();
 });
 
 test('renders project description', () => {
   render(<App />);
-  const descriptionElement = screen.getByText(/this is a simple react application for lspp 2025 assignment 1/i);
+  const descriptionElement = screen.getByText(/what started as a simple react app became a full ci\/cd pipeline/i);
   expect(descriptionElement).toBeInTheDocument();
 });
 
-test('renders docker containerization feature', () => {
+test('renders docker feature', () => {
   render(<App />);
-  const dockerElement = screen.getByText(/docker containerization/i);
+  const dockerElement = screen.getByText(/multi-stage docker builds/i);
   expect(dockerElement).toBeInTheDocument();
 });

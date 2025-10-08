@@ -1,90 +1,96 @@
-# Hello World React App - DevOps CI/CD Demo 🚀
+# Hello World CI/CD Pipeline 🚀
 
 [![Build & Test](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/build.yml/badge.svg)](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/build.yml)
 [![Release](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/release.yml/badge.svg)](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/release.yml)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue)](https://github.com/RbMo7/LSP-CI-CD-Workflow/pkgs/container/lsp-ci-cd-workflow)
+[![Latest Release](https://img.shields.io/github/v/release/RbMo7/LSP-CI-CD-Workflow)](https://github.com/RbMo7/LSP-CI-CD-Workflow/releases/latest)
+[![Docker Image Size](https://img.shields.io/docker/image-size/ghcr.io/rbmo7/lsp-ci-cd-workflow/latest)](https://github.com/RbMo7/LSP-CI-CD-Workflow/pkgs/container/lsp-ci-cd-workflow)
+[![License](https://img.shields.io/github/license/RbMo7/LSP-CI-CD-Workflow)](LICENSE)
 
-This is a simple React application created for **LSPP 2025 Assignment 3: The Release Architect**. This project demonstrates professional-grade CI/CD with Docker multi-stage builds, security scanning, automated releases, and container registry integration.
+A React app that showcases modern DevOps practices. Built this as part of my learning journey into CI/CD, containerization, and automated deployments. What started as a simple "Hello World" turned into a full production-ready pipeline!
 
-## 🎯 Project Overview
+## 🎯 What I Built
 
-This application showcases:
-- ✅ **Docker containerization** with multi-stage builds
-- ✅ **GitHub Actions CI/CD** with automated testing and building  
-- ✅ **Automated testing** with comprehensive test coverage
-- ✅ **Build verification** ensuring reliable deployments
+This project evolved through three phases:
 
-## 🏗️ Architecture
+**Phase 1 - Basic CI/CD**
+Got the fundamentals down - automated testing, Docker builds, and basic pipeline setup. Nothing fancy, but solid foundations.
 
-### CI/CD Pipeline
-Our GitHub Actions workflow (`build.yml`) implements a two-job pipeline:
+**Phase 2 - Debugging Skills** 
+Learned the hard way how to read error logs and fix broken pipelines. Turns out most of DevOps is just being good at debugging!
 
-1. **test-job**: Runs all tests and verifies the application builds successfully
-2. **build-job**: Creates a Docker image (only runs if tests pass, using `needs: test-job`)
+**Phase 3 - Production Ready**
+Now we're talking! Multi-stage Docker builds, security scanning, automated releases, and proper versioning. This actually feels like something you'd see in a real company.
 
-### Docker Strategy
-The `Dockerfile` uses Node.js Alpine for a lightweight, production-ready container that:
-- Installs dependencies efficiently with `npm ci`
-- Builds the React app for production
-- Serves the static files using the `serve` package
+## 🏗️ How It Works
 
-## 🚀 Release Strategy & Versioning
+### The Pipeline
+Two main workflows handle different scenarios:
 
-### Semantic Versioning
-This project follows [Semantic Versioning](https://semver.org/) (SemVer):
-- **MAJOR.MINOR.PATCH** (e.g., v1.2.3)
-- **MAJOR**: Breaking changes that require user action
-- **MINOR**: New features that are backward compatible  
-- **PATCH**: Bug fixes and small improvements
-- **Pre-release**: Beta versions (e.g., v1.1.0-beta, v2.0.0-rc1)
+**build.yml** - Runs on every push
+- Tests the code (React Testing Library)
+- Builds a Docker image if tests pass
+- Basic but reliable - catches issues early
 
-### Automated Release Process
-Our release pipeline triggers on Git tags starting with `v`:
-1. **Multi-Stage Docker Build**: Creates optimized, secure production images
-2. **Security Scanning**: Scans images for vulnerabilities using Trivy
-3. **Container Registry**: Pushes validated images to GitHub Container Registry (ghcr.io)
-4. **GitHub Releases**: Automatically creates releases with generated changelogs
+**release.yml** - Runs when I tag a version
+- Multi-stage Docker build (way smaller images)
+- Security scanning with Trivy
+- Pushes to GitHub Container Registry
+- Creates GitHub releases automatically
 
-### How to Create a Release
+### Docker Setup
+Started with a basic Dockerfile, then evolved it:
+- **Before**: Single stage, runs as root, ~200MB image
+- **After**: Multi-stage build, non-root user, health checks, ~50MB image
+
+The difference is night and day - both in size and security.
+
+## 🚀 Releases & Versioning
+
+### How I Handle Versions
+Using semantic versioning because it just makes sense:
+- `v1.0.0` - Major releases (breaking changes)
+- `v1.1.0` - New features 
+- `v1.0.1` - Bug fixes
+- `v1.1.0-beta` - Testing new stuff
+
+### Release Process
+Super simple now:
 ```bash
-# Create and push a new version tag
 git tag v1.0.0
 git push origin v1.0.0
-
-# For pre-release versions
-git tag v1.1.0-beta
-git push origin v1.1.0-beta
 ```
 
-## 🚀 Quick Start
+That's it! The pipeline handles:
+- Building optimized Docker images
+- Running security scans (Trivy catches vulnerabilities)  
+- Pushing to container registry
+- Creating GitHub releases with changelogs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Took me a while to get this working, but now releases are completely automated.
 
-## Available Scripts
+## 🚀 Try It Out
 
-In the project directory, you can run:
+### Run Locally
+```bash
+npm install
+npm start
+```
+Opens at http://localhost:3000
 
-### `npm start`
+### Run with Docker
+```bash
+# Use the latest release
+docker run -p 3000:3000 ghcr.io/rbmo7/lsp-ci-cd-workflow:latest
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Development
+```bash
+npm test          # Run tests
+npm run build     # Production build
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Pretty standard React setup, nothing crazy here.
 
 ### `npm run eject`
 
