@@ -4,8 +4,6 @@
 [![Release](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/release.yml/badge.svg)](https://github.com/RbMo7/LSP-CI-CD-Workflow/actions/workflows/release.yml)
 [![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue)](https://github.com/RbMo7/LSP-CI-CD-Workflow/pkgs/container/lsp-ci-cd-workflow)
 [![Latest Release](https://img.shields.io/github/v/release/RbMo7/LSP-CI-CD-Workflow)](https://github.com/RbMo7/LSP-CI-CD-Workflow/releases/latest)
-[![Docker Image Size](https://img.shields.io/docker/image-size/ghcr.io/rbmo7/lsp-ci-cd-workflow/latest)](https://github.com/RbMo7/LSP-CI-CD-Workflow/pkgs/container/lsp-ci-cd-workflow)
-[![License](https://img.shields.io/github/license/RbMo7/LSP-CI-CD-Workflow)](LICENSE)
 
 A React app that showcases modern DevOps practices. Built this as part of my learning journey into CI/CD, containerization, and automated deployments. What started as a simple "Hello World" turned into a full production-ready pipeline!
 
